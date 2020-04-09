@@ -11,6 +11,14 @@ function App() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const handleScroll = event => {
+    const { scrollTop, clientHeight, scrollHeight } = event.currentTarget;
+    
+    if (scrollHeight - scrollTop === clientHeight) {
+      setPage(prev => prev + 1);
+    }
+  }
+
   useEffect(() => {
     const loadUsers = async () => {
       setLoading(true);
@@ -24,7 +32,7 @@ function App() {
 
   return (
     <div className='App'>
-      <Content>
+      <Content onScroll={handleScroll}>
         {users && users.map(user => <User key={user.cell} user={user} />)}
       </Content>
       {loading && <Loading>Loading ...</Loading>}
