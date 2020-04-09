@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+// Components
+import User from './User';
+// Styles
+import { Content, Loading } from './App.styles';
+// API
+import { getUsers } from './API';
 
 function App() {
+  const [page, setPage] = useState(1);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Content>
+        {users && users.map(user => <User key={user.cell} user={user} />)}
+      </Content>
+      {loading && <Loading>Loading ...</Loading>}
     </div>
   );
 }
